@@ -20,6 +20,24 @@ class postmanEchoTest1 {
                 .statusCode(200)
                 .body(matchesJsonSchemaInClasspath("accounts.schema.json"))
                 .body("data", equalTo("some value"))
+
         ;
     }
+
+    @Test
+    void shouldReturnPostmanEchoText() {
+
+        given()
+                .baseUri("https://postman-echo.com")
+                .contentType("text/plain; charset=UTF-8")
+                .body("some data")
+                .when()
+                .post("/post")
+                .then()
+                .statusCode(200)
+                .body("text", equalTo("plain"))
+        ;
+    }
+
+
 }
