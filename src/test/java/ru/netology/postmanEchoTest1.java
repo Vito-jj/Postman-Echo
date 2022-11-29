@@ -1,26 +1,25 @@
 package ru.netology;
 
-import io.restassured.http.ContentType;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.*;
 
 class postmanEchoTest1 {
     @Test
     void shouldReturnPostmanEcho() {
+        // Given - When - Then
+// Предусловия
         given()
                 .baseUri("https://postman-echo.com")
-                .body("some data")
+                .body("some value") // отправляемые данные (заголовки и query можно выставлять аналогично)
+// Выполняемые действия
                 .when()
                 .post("/post")
+// Проверки
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("accounts.schema.json"))
                 .body("data", equalTo("some value"))
-
         ;
     }
 
@@ -30,12 +29,12 @@ class postmanEchoTest1 {
         given()
                 .baseUri("https://postman-echo.com")
                 .contentType("text/plain; charset=UTF-8")
-                .body("some data")
+                .body("81 october")
                 .when()
                 .post("/post")
                 .then()
                 .statusCode(200)
-                .body("text", equalTo("plain"))
+                .body("data", equalTo("81 october"))
         ;
     }
 
